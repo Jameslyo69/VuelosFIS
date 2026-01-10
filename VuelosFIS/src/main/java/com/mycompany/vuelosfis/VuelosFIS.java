@@ -32,16 +32,16 @@ public class VuelosFIS {
         IVueloRepository vueloRepo = new VueloRepositoryArchivo();
         IReservaRepository reservaRepo = new ReservaRepositoryArchivo();
 
-        // Servicios
+        
         VueloService vueloService = new VueloService(vueloRepo);
         CodigoService codigoService = new CodigoService();
         ReservaService reservaService = new ReservaService(reservaRepo, vueloService, codigoService);
 
-        // Controladores
+       
         BusquedaVuelosController busquedaController = new BusquedaVuelosController(vueloService);
         ReservaController reservaController = new ReservaController(reservaService);
 
-        // Vista principal
+       
         MainFrame frame = new MainFrame();
 
         BusquedaVuelosPanel panelBusqueda = new BusquedaVuelosPanel();

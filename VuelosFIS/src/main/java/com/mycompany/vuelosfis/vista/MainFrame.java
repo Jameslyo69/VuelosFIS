@@ -12,6 +12,8 @@ public class MainFrame extends JFrame {
     private final JButton btnBuscar = new JButton("Buscar vuelos");
     private final JButton btnReservas = new JButton("Ver reservas");
 
+    private final JPanel contentPanel = new JPanel(new BorderLayout());
+
     public MainFrame() {
         setTitle("VuelosFIS - Sistema de Pasajes");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,9 +26,17 @@ public class MainFrame extends JFrame {
 
         setLayout(new BorderLayout());
         add(top, BorderLayout.NORTH);
+        add(contentPanel, BorderLayout.CENTER);
 
-        // Por ahora solo una vista inicial vacía
-        add(new JLabel("Bienvenido a VuelosFIS", SwingConstants.CENTER), BorderLayout.CENTER);
+        // pantalla inicial
+        setContent(new JLabel("Bienvenido a VuelosFIS", SwingConstants.CENTER));
+    }
+
+    public void setContent(Component c) {
+        contentPanel.removeAll();
+        contentPanel.add(c, BorderLayout.CENTER);
+        contentPanel.revalidate();
+        contentPanel.repaint();
     }
 
     public JButton getBtnBuscar() { return btnBuscar; }
