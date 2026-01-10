@@ -50,8 +50,4 @@ public class Vuelo {
     public String toString() {
         return codigo + " | " + ruta + " | " + fecha + " " + hora + " | $" + precio + " | cupos=" + cuposDisponibles;
     }
-
-    public Object getRuta() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

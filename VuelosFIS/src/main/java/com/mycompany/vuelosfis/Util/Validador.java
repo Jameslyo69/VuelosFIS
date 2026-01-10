@@ -4,10 +4,14 @@
  */
 package com.mycompany.vuelosfis.Util;
 
-/**
- *
- * @author caino
- */
 public class Validador {
-    
+
+    public static boolean noVacio(String s) {
+        return s != null && !s.trim().isEmpty();
+    }
+
+    public static boolean fechaBasicaYYYYMMDD(String s) {
+        // Validación súper simple (para principiantes)
+        return noVacio(s) && s.matches("\\d{4}-\\d{2}-\\d{2}");
+    }
 }

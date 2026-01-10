@@ -4,10 +4,17 @@
  */
 package com.mycompany.vuelosfis.Util;
 
-/**
- *
- * @author caino
- */
+import javax.swing.JOptionPane;
+import java.awt.Component;
+
 public class Mensajes {
-    
+
+    public static void info(Component parent, String msg) {
+        JOptionPane.showMessageDialog(parent, msg, "Info", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void error(Component parent, String msg) {
+        JOptionPane.showMessageDialog(parent, msg, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }
+
