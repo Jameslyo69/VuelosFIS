@@ -5,21 +5,46 @@
 package com.mycompany.vuelosfis.Modelo;
 
 public class Ruta {
+
     private String origen;
     private String destino;
 
-    public Ruta() {}
+    public Ruta() {
+    }
 
     public Ruta(String origen, String destino) {
+
+        if (origen == null || origen.isEmpty()) {
+            throw new IllegalArgumentException("Debe ingresar la ciudad de origen");
+        }
+
+        if (destino == null || destino.isEmpty()) {
+            throw new IllegalArgumentException("Debe ingresar la ciudad de destino");
+        }
+
         this.origen = origen;
         this.destino = destino;
     }
 
-    public String getOrigen() { return origen; }
-    public void setOrigen(String origen) { this.origen = origen; }
+    public String getOrigen() {
+        return origen;
+    }
 
-    public String getDestino() { return destino; }
-    public void setDestino(String destino) { this.destino = destino; }
+    public void setOrigen(String origen) {
+        if (origen != null && !origen.isEmpty()) {
+            this.origen = origen;
+        }
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        if (destino != null && !destino.isEmpty()) {
+            this.destino = destino;
+        }
+    }
 
     @Override
     public String toString() {
