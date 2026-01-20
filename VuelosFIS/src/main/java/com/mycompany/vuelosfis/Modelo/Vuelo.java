@@ -5,6 +5,7 @@
 package com.mycompany.vuelosfis.Modelo;
 
 public class Vuelo {
+
     private String codigo;
     private Ruta ruta;
     private Avion avion;
@@ -13,9 +14,25 @@ public class Vuelo {
     private double precio;
     private int cuposDisponibles;
 
-    public Vuelo() {}
+    public Vuelo() {
+    }
 
-    public Vuelo(String codigo, Ruta ruta, Avion avion, String fecha, String hora, double precio, int cuposDisponibles) {
+    public Vuelo(String codigo, Ruta ruta, Avion avion,
+                 String fecha, String hora,
+                 double precio, int cuposDisponibles) {
+
+        if (codigo == null || codigo.isEmpty()) {
+            throw new IllegalArgumentException("Codigo invalido");
+        }
+
+        if (precio <= 0) {
+            throw new IllegalArgumentException("El precio debe ser mayor a cero");
+        }
+
+        if (cuposDisponibles <= 0) {
+            throw new IllegalArgumentException("Los cupos deben ser mayores a cero");
+        }
+
         this.codigo = codigo;
         this.ruta = ruta;
         this.avion = avion;
@@ -25,29 +42,79 @@ public class Vuelo {
         this.cuposDisponibles = cuposDisponibles;
     }
 
-    public String getCodigo() { return codigo; }
-    public void setCodigo(String codigo) { this.codigo = codigo; }
+    public String getCodigo() {
+        return codigo;
+    }
 
-    public Ruta getRuta() { return ruta; }
-    public void setRuta(Ruta ruta) { this.ruta = ruta; }
+    public void setCodigo(String codigo) {
+        if (codigo != null && !codigo.isEmpty()) {
+            this.codigo = codigo;
+        }
+    }
 
-    public Avion getAvion() { return avion; }
-    public void setAvion(Avion avion) { this.avion = avion; }
+    public Ruta getRuta() {
+        return ruta;
+    }
 
-    public String getFecha() { return fecha; }
-    public void setFecha(String fecha) { this.fecha = fecha; }
+    public void setRuta(Ruta ruta) {
+        this.ruta = ruta;
+    }
 
-    public String getHora() { return hora; }
-    public void setHora(String hora) { this.hora = hora; }
+    public Avion getAvion() {
+        return avion;
+    }
 
-    public double getPrecio() { return precio; }
-    public void setPrecio(double precio) { this.precio = precio; }
+    public void setAvion(Avion avion) {
+        this.avion = avion;
+    }
 
-    public int getCuposDisponibles() { return cuposDisponibles; }
-    public void setCuposDisponibles(int cuposDisponibles) { this.cuposDisponibles = cuposDisponibles; }
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        if (fecha != null && !fecha.isEmpty()) {
+            this.fecha = fecha;
+        }
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        if (hora != null && !hora.isEmpty()) {
+            this.hora = hora;
+        }
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        if (precio > 0) {
+            this.precio = precio;
+        }
+    }
+
+    public int getCuposDisponibles() {
+        return cuposDisponibles;
+    }
+
+    public void setCuposDisponibles(int cuposDisponibles) {
+        if (cuposDisponibles > 0) {
+            this.cuposDisponibles = cuposDisponibles;
+        }
+    }
 
     @Override
     public String toString() {
-        return codigo + " | " + ruta + " | " + fecha + " " + hora + " | $" + precio + " | cupos=" + cuposDisponibles;
+        return "Vuelo " + codigo +
+               " | " + ruta +
+               " | " + fecha + " " + hora +
+               " | Precio: " + precio +
+               " | Cupos: " + cuposDisponibles;
     }
 }
+
