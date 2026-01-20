@@ -4,12 +4,8 @@
  */
 package com.mycompany.vuelosfis.Modelo;
 
-/**
- *
- * @author caino
- */
-
 public enum EstadoReserva {
     RESERVADO,
-    COMPRADO
+    COMPRADO,
+    CANCELADO
 }
