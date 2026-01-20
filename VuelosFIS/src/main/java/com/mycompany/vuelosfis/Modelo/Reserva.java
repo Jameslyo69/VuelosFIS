@@ -5,15 +5,36 @@
 package com.mycompany.vuelosfis.Modelo;
 
 public class Reserva {
+
     private String codigoReserva;
     private Vuelo vuelo;
     private Pasajero pasajero;
-    private EstadoReserva estado; 
-    private String fechaRegistro; 
+    private EstadoReserva estado;
+    private String fechaRegistro;
 
-    public Reserva() {}
+    public Reserva() {
+    }
 
-    public Reserva(String codigoReserva, Vuelo vuelo, Pasajero pasajero, EstadoReserva estado, String fechaRegistro) {
+    public Reserva(String codigoReserva, Vuelo vuelo,
+                   Pasajero pasajero, EstadoReserva estado,
+                   String fechaRegistro) {
+
+        if (codigoReserva == null || codigoReserva.isEmpty()) {
+            throw new IllegalArgumentException("Codigo de reserva invalido");
+        }
+
+        if (vuelo == null) {
+            throw new IllegalArgumentException("Vuelo no puede ser nulo");
+        }
+
+        if (pasajero == null) {
+            throw new IllegalArgumentException("Pasajero no puede ser nulo");
+        }
+
+        if (estado == null) {
+            estado = EstadoReserva.RESERVADO;
+        }
+
         this.codigoReserva = codigoReserva;
         this.vuelo = vuelo;
         this.pasajero = pasajero;
@@ -21,23 +42,62 @@ public class Reserva {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public String getCodigoReserva() { return codigoReserva; }
-    public void setCodigoReserva(String codigoReserva) { this.codigoReserva = codigoReserva; }
+    public String getCodigoReserva() {
+        return codigoReserva;
+    }
 
-    public Vuelo getVuelo() { return vuelo; }
-    public void setVuelo(Vuelo vuelo) { this.vuelo = vuelo; }
+    public void setCodigoReserva(String codigoReserva) {
+        if (codigoReserva != null && !codigoReserva.isEmpty()) {
+            this.codigoReserva = codigoReserva;
+        }
+    }
 
-    public Pasajero getPasajero() { return pasajero; }
-    public void setPasajero(Pasajero pasajero) { this.pasajero = pasajero; }
+    public Vuelo getVuelo() {
+        return vuelo;
+    }
 
-    public EstadoReserva getEstado() { return estado; }
-    public void setEstado(EstadoReserva estado) { this.estado = estado; }
+    public void setVuelo(Vuelo vuelo) {
+        if (vuelo != null) {
+            this.vuelo = vuelo;
+        }
+    }
 
-    public String getFechaRegistro() { return fechaRegistro; }
-    public void setFechaRegistro(String fechaRegistro) { this.fechaRegistro = fechaRegistro; }
+    public Pasajero getPasajero() {
+        return pasajero;
+    }
+
+    public void setPasajero(Pasajero pasajero) {
+        if (pasajero != null) {
+            this.pasajero = pasajero;
+        }
+    }
+
+    public EstadoReserva getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoReserva estado) {
+        if (estado != null) {
+            this.estado = estado;
+        }
+    }
+
+    public String getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(String fechaRegistro) {
+        if (fechaRegistro != null && !fechaRegistro.isEmpty()) {
+            this.fechaRegistro = fechaRegistro;
+        }
+    }
 
     @Override
     public String toString() {
-        return codigoReserva + " | " + vuelo.getCodigo() + " | " + pasajero + " | " + estado + " | " + fechaRegistro;
+        return codigoReserva +
+               " | Vuelo: " + vuelo.getCodigo() +
+               " | Pasajero: " + pasajero +
+               " | Estado: " + estado +
+               " | Fecha: " + fechaRegistro;
     }
 }
