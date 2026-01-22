@@ -1,46 +1,52 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.vuelosfis.vista;
 
-import com.mycompany.vuelosfis.Modelo.Reserva;
-
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.util.List;
 
 public class ReservasPanel extends JPanel {
 
-    private final DefaultTableModel model = new DefaultTableModel(
-            new Object[]{"Código", "Vuelo", "Pasajero", "Estado", "Fecha"}, 0
-    );
-    private final JTable tabla = new JTable(model);
-    private final JButton btnRefrescar = new JButton("Refrescar");
+    private static final Color COLOR_CREMA = new Color(245, 245, 220);
 
     public ReservasPanel() {
-        setLayout(new BorderLayout());
-        add(new JScrollPane(tabla), BorderLayout.CENTER);
+        setLayout(new BorderLayout(10, 10));
+        setBackground(COLOR_CREMA);
+        setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JPanel abajo = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        abajo.add(btnRefrescar);
-        add(abajo, BorderLayout.SOUTH);
-    }
+        // ===== CONTENEDOR CON BORDE =====
+        JPanel contenedor = new JPanel(new BorderLayout());
+        contenedor.setBackground(COLOR_CREMA);
+        contenedor.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(Color.GRAY),
+                "Listado de Reservas",
+                TitledBorder.LEFT,
+                TitledBorder.TOP,
+                new Font("Arial", Font.BOLD, 12),
+                new Color(0, 0, 150)
+        ));
 
-    public JButton getBtnRefrescar() { return btnRefrescar; }
+        // ===== PANEL BLANCO INTERNO =====
+        JPanel panelMensaje = new JPanel();
+        panelMensaje.setBackground(Color.WHITE);
+        panelMensaje.setLayout(new BoxLayout(panelMensaje, BoxLayout.Y_AXIS));
+        panelMensaje.setBorder(new EmptyBorder(40, 10, 40, 10));
 
-    public void mostrarReservas(List<Reserva> reservas) {
-        model.setRowCount(0);
-        for (Reserva r : reservas) {
-            String vueloCod = (r.getVuelo() != null) ? r.getVuelo().getCodigo() : "";
-            model.addRow(new Object[]{
-                    r.getCodigoReserva(),
-                    vueloCod,
-                    r.getPasajero(),
-                    r.getEstado(),
-                    r.getFechaRegistro()
-            });
-        }
+        JLabel lblTitulo = new JLabel("No hay reservas registradas");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 14));
+        lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel lblSub = new JLabel("Las reservas realizadas aparecerán aquí");
+        lblSub.setFont(new Font("Arial", Font.PLAIN, 12));
+        lblSub.setForeground(Color.GRAY);
+        lblSub.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        panelMensaje.add(lblTitulo);
+        panelMensaje.add(Box.createVerticalStrut(10));
+        panelMensaje.add(lblSub);
+
+        contenedor.add(panelMensaje, BorderLayout.CENTER);
+
+        add(contenedor, BorderLayout.CENTER);
     }
 }

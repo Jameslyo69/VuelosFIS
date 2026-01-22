@@ -1,44 +1,80 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.vuelosfis.vista;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
 
-    private final JButton btnBuscar = new JButton("Buscar vuelos");
-    private final JButton btnReservas = new JButton("Ver reservas");
-
-    private final JPanel contentPanel = new JPanel(new BorderLayout());
+    private BusquedaVuelosPanel busquedaPanel;
+    private ReservasPanel reservasPanel;
 
     public MainFrame() {
-        setTitle("VuelosFIS - Sistema de Pasajes");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 600);
+        configurarVentana();
+        inicializarComponentes();
+    }
+
+    private void configurarVentana() {
+        setTitle("Sistema de Gestión de Vuelos");
+        setSize(950, 550);
         setLocationRelativeTo(null);
-
-        JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        top.add(btnBuscar);
-        top.add(btnReservas);
-
-        setLayout(new BorderLayout());
-        add(top, BorderLayout.NORTH);
-        add(contentPanel, BorderLayout.CENTER);
-
-        // pantalla inicial
-        setContent(new JLabel("Bienvenido a VuelosFIS", SwingConstants.CENTER));
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
     }
 
-    public void setContent(Component c) {
-        contentPanel.removeAll();
-        contentPanel.add(c, BorderLayout.CENTER);
-        contentPanel.revalidate();
-        contentPanel.repaint();
+    private void inicializarComponentes() {
+
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        setContentPane(panelPrincipal);
+
+        // ================= HEADER =================
+        JPanel panelHeader = new JPanel(new BorderLayout());
+        panelHeader.setBackground(new Color(0, 120, 215));
+        panelHeader.setPreferredSize(new Dimension(100, 36));
+
+        JLabel lblTitulo = new JLabel("Sistema de Gestión de Vuelos");
+        lblTitulo.setForeground(Color.WHITE);
+        lblTitulo.setBorder(new EmptyBorder(8, 12, 8, 0));
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 14));
+
+        panelHeader.add(lblTitulo, BorderLayout.WEST);
+        panelPrincipal.add(panelHeader, BorderLayout.NORTH);
+
+        // ================= TABS =================
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        busquedaPanel = new BusquedaVuelosPanel();
+        reservasPanel = new ReservasPanel();
+
+        // --- TAB 1: Buscar ---
+        tabbedPane.addTab("Buscar Vuelos", busquedaPanel);
+
+        // --- TAB 2: Comprar (UI INFORMATIVA) ---
+        tabbedPane.addTab("Comprar Pasaje", crearPanelComprar(tabbedPane));
+
+
+        // --- TAB 3: Reservas ---
+        tabbedPane.addTab("Ver Reservas", reservasPanel);
+
+        panelPrincipal.add(tabbedPane, BorderLayout.CENTER);
     }
 
-    public JButton getBtnBuscar() { return btnBuscar; }
-    public JButton getBtnReservas() { return btnReservas; }
+    // ================= PANEL COMPRAR =================
+    private JPanel crearPanelComprar(JTabbedPane tabbedPane) {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(245, 245, 220));
+
+        JButton btnVerPantalla = new JButton("Ver pantalla de compra");
+        btnVerPantalla.setFont(new Font("Arial", Font.BOLD, 14));
+
+        btnVerPantalla.addActionListener(e -> {
+            ReservaDialog dialog = new ReservaDialog(this);
+            dialog.setVisible(true);
+//            tabbedPane.setSelectedIndex(0); // vuelve a Buscar
+        });
+
+        panel.add(btnVerPantalla, BorderLayout.CENTER);
+        return panel;
+    }
+
 }
