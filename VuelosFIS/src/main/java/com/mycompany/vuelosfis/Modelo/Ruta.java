@@ -47,7 +47,3 @@ public class Ruta {
         return origen + " -> " + destino;
     }
 }
-    public String toString() {
-        return origen + " -> " + destino;
-    }
-}
