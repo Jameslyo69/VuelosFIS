@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.vuelosfis.Modelo;
 
 public class Vuelo {
@@ -21,17 +17,7 @@ public class Vuelo {
                  String fecha, String hora,
                  double precio, int cuposDisponibles) {
 
-        if (codigo == null || codigo.isEmpty()) {
-            throw new IllegalArgumentException("Codigo invalido");
-        }
-
-        if (precio <= 0) {
-            throw new IllegalArgumentException("El precio debe ser mayor a cero");
-        }
-
-        if (cuposDisponibles <= 0) {
-            throw new IllegalArgumentException("Los cupos deben ser mayores a cero");
-        }
+        validar(codigo, fecha, hora, precio, cuposDisponibles);
 
         this.codigo = codigo;
         this.ruta = ruta;
@@ -42,12 +28,45 @@ public class Vuelo {
         this.cuposDisponibles = cuposDisponibles;
     }
 
+    public Vuelo(String codigo, String origen, String destino,
+                 String fecha, String hora,
+                 double precio, int cuposDisponibles) {
+
+        validar(codigo, fecha, hora, precio, cuposDisponibles);
+
+        this.codigo = codigo;
+        this.ruta = new Ruta(origen, destino);
+        this.avion = null;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.precio = precio;
+        this.cuposDisponibles = cuposDisponibles;
+    }
+
+    private void validar(String codigo, String fecha, String hora, double precio, int cuposDisponibles) {
+        if (codigo == null || codigo.trim().isEmpty()) {
+            throw new IllegalArgumentException("Codigo invalido");
+        }
+        if (fecha == null || fecha.trim().isEmpty()) {
+            throw new IllegalArgumentException("Fecha invalida");
+        }
+        if (hora == null || hora.trim().isEmpty()) {
+            throw new IllegalArgumentException("Hora invalida");
+        }
+        if (precio <= 0) {
+            throw new IllegalArgumentException("El precio debe ser mayor a cero");
+        }
+        if (cuposDisponibles < 0) {
+            throw new IllegalArgumentException("Los cupos no pueden ser negativos");
+        }
+    }
+
     public String getCodigo() {
         return codigo;
     }
 
     public void setCodigo(String codigo) {
-        if (codigo != null && !codigo.isEmpty()) {
+        if (codigo != null && !codigo.trim().isEmpty()) {
             this.codigo = codigo;
         }
     }
@@ -73,7 +92,7 @@ public class Vuelo {
     }
 
     public void setFecha(String fecha) {
-        if (fecha != null && !fecha.isEmpty()) {
+        if (fecha != null && !fecha.trim().isEmpty()) {
             this.fecha = fecha;
         }
     }
@@ -83,7 +102,7 @@ public class Vuelo {
     }
 
     public void setHora(String hora) {
-        if (hora != null && !hora.isEmpty()) {
+        if (hora != null && !hora.trim().isEmpty()) {
             this.hora = hora;
         }
     }
@@ -103,18 +122,21 @@ public class Vuelo {
     }
 
     public void setCuposDisponibles(int cuposDisponibles) {
-        if (cuposDisponibles > 0) {
+        if (cuposDisponibles >= 0) {
             this.cuposDisponibles = cuposDisponibles;
         }
     }
 
     @Override
     public String toString() {
+        String rutaTxt = (ruta == null) ? "(sin ruta)" : ruta.toString();
+        String avionTxt = (avion == null) ? "(sin avion)" : avion.toString();
+
         return "Vuelo " + codigo +
-               " | " + ruta +
+               " | " + rutaTxt +
+               " | " + avionTxt +
                " | " + fecha + " " + hora +
                " | Precio: " + precio +
                " | Cupos: " + cuposDisponibles;
     }
 }
-
