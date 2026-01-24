@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.vuelosfis.Modelo;
 
 public class Ruta {
@@ -14,16 +10,16 @@ public class Ruta {
 
     public Ruta(String origen, String destino) {
 
-        if (origen == null || origen.isEmpty()) {
+        if (origen == null || origen.trim().isEmpty()) {
             throw new IllegalArgumentException("Debe ingresar la ciudad de origen");
         }
 
-        if (destino == null || destino.isEmpty()) {
+        if (destino == null || destino.trim().isEmpty()) {
             throw new IllegalArgumentException("Debe ingresar la ciudad de destino");
         }
 
-        this.origen = origen;
-        this.destino = destino;
+        this.origen = origen.trim();
+        this.destino = destino.trim();
     }
 
     public String getOrigen() {
@@ -31,8 +27,8 @@ public class Ruta {
     }
 
     public void setOrigen(String origen) {
-        if (origen != null && !origen.isEmpty()) {
-            this.origen = origen;
+        if (origen != null && !origen.trim().isEmpty()) {
+            this.origen = origen.trim();
         }
     }
 
@@ -41,12 +37,16 @@ public class Ruta {
     }
 
     public void setDestino(String destino) {
-        if (destino != null && !destino.isEmpty()) {
-            this.destino = destino;
+        if (destino != null && !destino.trim().isEmpty()) {
+            this.destino = destino.trim();
         }
     }
 
     @Override
+    public String toString() {
+        return origen + " -> " + destino;
+    }
+}
     public String toString() {
         return origen + " -> " + destino;
     }
